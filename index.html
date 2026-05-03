@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Maternidade Inteligente — apoio informativo para mães sobre amamentação, sono do bebê, puerpério e saúde emocional. Conteúdo educativo baseado em SBP, OMS e Ministério da Saúde.">
+<meta name="theme-color" content="#FAF7F2">
+<title>Maternidade Inteligente — Apoio informativo para mães</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFDF9;
+    --blush: #F2DDD5;
+    --dusty-rose: #C9877A;
+    --terracotta: #A85C4E;
+    --sage: #7A9E8A;
+    --sage-light: #EEF5F1;
+    --sage-dark: #4A6B57;
+    --ink: #2A2420;
+    --ink-soft: #5C4F4A;
+    --ink-muted: #9A8C87;
+    --border: #E8DDD8;
+    --border-soft: #F0E8E4;
+    --warning-bg: #FFF8EC;
+    --warning-border: #E8C87A;
+    --warning-text: #7A5A1E;
+    --danger-bg: #FFF0EE;
+    --danger-border: #E8A09A;
+    --danger-text: #8A2E27;
+    --shadow-sm: 0 2px 8px rgba(42,36,32,0.04);
+    --shadow-md: 0 8px 24px rgba(42,36,32,0.08);
+    --shadow-lg: 0 20px 60px rgba(42,36,32,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button { font-family: inherit; }
+
+  /* ── ACCESSIBILITY ── */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  :focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .skip-link {
+    position: absolute; left: -9999px; top: 8px;
+    background: var(--ink); color: white;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 13px; z-index: 999;
+  }
+  .skip-link:focus { left: 8px; }
+
+  /* ── DISCLAIMER BANNER ── */
+  .disclaimer-banner {
+    background: var(--warning-bg);
+    border-bottom: 1px solid var(--warning-border);
+    padding: 10px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--warning-text);
+    line-height: 1.5;
+  }
+  .disclaimer-banner strong { font-weight: 600; }
+
+  /* ── HEADER ── */
+  header {
+    background: rgba(255,253,249,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--dusty-rose), var(--terracotta));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(168,92,78,0.25);
+  }
+  .logo-mark svg { width: 18px; height: 18px; color: white; }
+  .logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .logo-text span { color: var(--dusty-rose); font-style: italic; }
+  nav { display: flex; gap: 28px; }
+  nav a {
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    position: relative;
+  }
+  nav a:hover { color: var(--terracotta); }
+  nav a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--terracotta);
+    transform: scaleX(0); transition: transform 0.2s;
+  }
+  nav a:hover::after { transform: scaleX(1); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 90px 40px 70px;
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 60px; right: 40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dusty-rose);
+    margin-bottom: 22px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 24px; height: 1px; background: var(--dusty-rose);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5.5vw, 60px);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 26px;
+    letter-spacing: -1.2px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dusty-rose);
+  }
+  .hero-lead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 580px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--terracotta);
+    color: white;
+    font-size: 14px; font-weight: 500;
+    padding: 13px 24px;
+    border-radius: 40px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 12px rgba(168,92,78,0.2);
+  }
+  .btn-primary:hover { background: var(--dusty-rose); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(168,92,78,0.28); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 14px; font-weight: 500;
+    padding: 13px 22px;
+    border-radius: 40px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--dusty-rose); color: var(--terracotta); }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 40px 70px;
+  }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 32px; padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px; flex-wrap: wrap;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--ink);
+    letter-spacing: -0.4px;
+  }
+  .section-sub { font-size: 13px; color: var(--ink-muted); }
+
+  /* ── TOPIC GRID ── */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .topic-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+  }
+  .topic-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--dusty-rose));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .topic-card:hover {
+    border-color: var(--card-accent, var(--dusty-rose));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .topic-card:hover::before { opacity: 1; }
+  .topic-icon {
+    font-size: 26px;
+    margin-bottom: 14px;
+    display: block;
+    line-height: 1;
+  }
+  .topic-card h3 {
+    font-size: 15px; font-weight: 500;
+    color: var(--ink); margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .topic-card p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .topic-card .read-more {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--card-accent, var(--dusty-rose));
+    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  /* ── DRAWER ── */
+  .drawer-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(42,36,32,0.45);
+    z-index: 200;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .drawer-overlay.open { display: block; opacity: 1; }
+  .drawer {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: min(540px, 100vw);
+    background: var(--warm-white);
+    z-index: 201;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-lg);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    position: sticky; top: 0;
+    background: var(--warm-white);
+    z-index: 1;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+  }
+  .drawer-eyebrow {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dusty-rose); margin-bottom: 6px; font-weight: 500;
+  }
+  .drawer-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: var(--ink); letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .drawer-close {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 34px; height: 34px;
+    cursor: pointer; font-size: 16px;
+    color: var(--ink-muted); flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .drawer-close:hover { background: var(--cream); color: var(--ink); }
+  .drawer-body { padding: 28px 32px 40px; flex: 1; }
+  .drawer-body h4 {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 28px 0 12px;
+  }
+  .drawer-body h4:first-child { margin-top: 0; }
+  .drawer-body p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .drawer-body ul { list-style: none; margin-bottom: 16px; }
+  .drawer-body ul li {
+    font-size: 14px; color: var(--ink-soft);
+    padding: 10px 0 10px 22px;
+    position: relative; line-height: 1.6;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .drawer-body ul li:last-child { border-bottom: none; }
+  .drawer-body ul li::before {
+    content: ''; position: absolute;
+    left: 4px; top: 18px;
+    width: 6px; height: 6px;
+    background: var(--dusty-rose);
+    border-radius: 50%;
+  }
+  .drawer-body strong { color: var(--ink); font-weight: 500; }
+  .alert-box {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-radius: 12px;
+    padding: 16px 18px; margin-top: 24px;
+  }
+  .alert-box h5 {
+    font-size: 13px; font-weight: 600;
+    color: var(--danger-text);
+    margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .alert-box p {
+    font-size: 13.5px; color: var(--danger-text);
+    margin: 0; line-height: 1.6;
+  }
+  .source-note {
+    background: var(--sage-light);
+    border-left: 3px solid var(--sage);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 24px;
+    font-size: 12.5px; color: var(--sage-dark);
+    line-height: 1.55;
+  }
+
+  /* ── ASSISTANT ── */
+  .assistant-section {
+    background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 70px 0;
+    margin: 20px 0 0;
+  }
+  .assistant-inner { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+  .assistant-header { margin-bottom: 28px; }
+  .assistant-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; color: var(--ink);
+    margin-bottom: 12px; letter-spacing: -0.4px;
+  }
+  .assistant-header p {
+    font-size: 15px; color: var(--ink-muted);
+    line-height: 1.65; max-width: 560px;
+  }
+
+  .api-config {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px; margin-bottom: 20px;
+  }
+  .api-config-toggle {
+    background: none; border: none; cursor: pointer;
+    font-size: 12px; color: var(--ink-muted);
+    display: flex; align-items: center; gap: 6px;
+    padding: 0; font-family: inherit;
+  }
+  .api-config-toggle:hover { color: var(--terracotta); }
+  .api-config-content { display: none; margin-top: 16px; }
+  .api-config-content.show { display: block; }
+  .api-config label {
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    display: block; margin-bottom: 8px;
+  }
+  .api-config-row { display: flex; gap: 8px; }
+  .api-config input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: inherit; font-size: 13px;
+    background: var(--warm-white); color: var(--ink);
+    outline: none; transition: border-color 0.2s;
+  }
+  .api-config input:focus { border-color: var(--dusty-rose); }
+  .btn-sm {
+    background: var(--terracotta); color: white;
+    border: none; border-radius: 10px;
+    padding: 11px 18px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .btn-sm:hover { background: var(--dusty-rose); }
+  .api-config-note {
+    font-size: 11.5px; color: var(--ink-muted);
+    margin-top: 10px; line-height: 1.55;
+  }
+  .api-config-note a { color: var(--terracotta); text-decoration: none; }
+  .api-config-note a:hover { text-decoration: underline; }
+  .api-status { font-size: 12px; margin-top: 8px; font-weight: 500; }
+  .api-status.ok { color: var(--sage-dark); }
+  .api-status.err { color: var(--terracotta); }
+
+  .chat-window {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--cream);
+    box-shadow: var(--shadow-sm);
+  }
+  .chat-messages {
+    height: 420px;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 6px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .msg { max-width: 88%; animation: msgIn 0.3s ease; }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .msg.user { align-self: flex-end; }
+  .msg.assistant { align-self: flex-start; }
+  .msg-bubble {
+    padding: 13px 17px;
+    border-radius: 18px;
+    font-size: 14.5px; line-height: 1.65;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .msg.user .msg-bubble {
+    background: var(--terracotta); color: white;
+    border-radius: 18px 18px 4px 18px;
+  }
+  .msg.assistant .msg-bubble {
+    background: var(--warm-white); color: var(--ink-soft);
+    border: 1px solid var(--border);
+    border-radius: 18px 18px 18px 4px;
+  }
+  .msg.assistant.alert-msg .msg-bubble {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+    color: var(--danger-text);
+  }
+  .msg-bubble .small {
+    display: block; margin-top: 8px;
+    font-size: 12px; color: var(--ink-muted); font-style: italic;
+  }
+  .msg-label {
+    font-size: 11px; color: var(--ink-muted);
+    margin-bottom: 4px; padding: 0 6px;
+  }
+  .msg.user .msg-label { text-align: right; }
+
+  .typing-indicator {
+    display: none;
+    align-self: flex-start;
+    padding: 14px 18px;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 18px 18px 18px 4px;
+  }
+  .typing-indicator.show { display: flex; gap: 5px; align-items: center; }
+  .typing-dot {
+    width: 7px; height: 7px;
+    background: var(--ink-muted); border-radius: 50%;
+    animation: typing 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+
+  .chat-input-area {
+    border-top: 1px solid var(--border);
+    padding: 16px;
+    background: var(--warm-white);
+    display: flex; gap: 10px; align-items: flex-end;
+  }
+  .chat-input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-family: inherit; font-size: 14px;
+    color: var(--ink); background: var(--cream);
+    resize: none; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    min-height: 48px; max-height: 140px;
+    line-height: 1.5;
+  }
+  .chat-input:focus { border-color: var(--dusty-rose); background: var(--warm-white); }
+  .chat-input::placeholder { color: var(--ink-muted); }
+  .send-btn {
+    background: var(--terracotta); color: white;
+    border: none; border-radius: 14px;
+    width: 48px; height: 48px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .send-btn svg { width: 18px; height: 18px; }
+  .send-btn:hover:not(:disabled) { background: var(--dusty-rose); }
+  .send-btn:active:not(:disabled) { transform: scale(0.95); }
+  .send-btn:disabled { background: var(--border); cursor: not-allowed; opacity: 0.6; }
+
+  .suggestions {
+    margin-top: 16px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .suggestion-chip {
+    background: var(--blush);
+    color: var(--terracotta);
+    border: none; border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 12.5px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.15s, color 0.15s;
+  }
+  .suggestion-chip:hover { background: var(--dusty-rose); color: white; }
+
+  .disclaimer-box {
+    margin-top: 18px;
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 12.5px; color: var(--warning-text);
+    line-height: 1.65;
+  }
+  .disclaimer-box strong { font-weight: 600; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .about-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .about-card h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .about-card p {
+    font-size: 14px; color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 50px 40px 30px;
+    border-top: 1px solid var(--border);
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .footer-brand .logo { margin-bottom: 12px; }
+  .footer-brand .logo-text { font-size: 17px; }
+  .footer-note {
+    font-size: 12.5px; color: var(--ink-muted);
+    margin-top: 4px; max-width: 340px; line-height: 1.6;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links-title {
+    font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink);
+    font-weight: 600; margin-bottom: 6px;
+  }
+  .footer-links a {
+    font-size: 13px; color: var(--ink-muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--terracotta); }
+  .footer-bottom {
+    text-align: center; font-size: 11.5px; color: var(--ink-muted);
+    padding: 18px 40px 24px;
+    border-top: 1px solid var(--border-soft);
+    line-height: 1.6;
+  }
+  .footer-bottom strong { color: var(--terracotta); font-weight: 600; }
+
+  @media (max-width: 720px) {
+    header { padding: 14px 20px; }
+    nav { gap: 18px; }
+    nav a { font-size: 12px; }
+    .hero { padding: 56px 20px 44px; }
+    .hero::before { display: none; }
+    .section { padding: 0 20px 56px; }
+    .assistant-section { padding: 50px 0; }
+    .assistant-inner { padding: 0 20px; }
+    .about-grid { grid-template-columns: 1fr; }
+    footer { padding: 36px 20px 24px; flex-direction: column; gap: 28px; }
+    .footer-bottom { padding: 16px 20px 22px; }
+    .drawer-header { padding: 22px 24px 16px; }
+    .drawer-body { padding: 22px 24px 32px; }
+  }
+  @media (max-width: 460px) {
+    nav { display: none; }
+    .chat-messages { height: 360px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+<div class="disclaimer-banner" role="alert">
+  <strong>Aviso importante:</strong> As informações deste site têm caráter educativo e não substituem orientação médica profissional.
+  Em caso de sintomas preocupantes, procure um pediatra ou médico imediatamente · SAMU: <strong>192</strong>
+</div>
+
+<header>
+  <a href="#" class="logo" aria-label="Maternidade Inteligente — Início">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </span>
+    <span class="logo-text">Maternidade <span>Inteligente</span></span>
+  </a>
+  <nav aria-label="Navegação principal">
+    <a href="#topicos">Tópicos</a>
+    <a href="#assistente">Assistente</a>
+    <a href="#sobre">Sobre</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <p class="hero-eyebrow">Apoio informativo para mães</p>
+    <h1>Você não precisa<br>navegar <em>sozinha</em><br>nessa fase.</h1>
+    <p class="hero-lead">
+      Informações confiáveis sobre amamentação, sono, puerpério e saúde emocional —
+      organizadas com cuidado para o momento em que você mais precisa.
+    </p>
+    <div class="hero-actions">
+      <a href="#assistente" class="btn-primary">
+        Falar com o assistente
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#topicos" class="btn-secondary">Explorar tópicos</a>
+    </div>
+  </section>
+
+  <section class="section" id="topicos">
+    <div class="section-header">
+      <h2 class="section-title">Tópicos de apoio</h2>
+      <span class="section-sub">Toque em um cartão para saber mais</span>
+    </div>
+    <div class="topic-grid" id="topicGrid"></div>
+  </section>
+
+  <section class="assistant-section" id="assistente">
+    <div class="assistant-inner">
+      <div class="assistant-header">
+        <h2>Assistente de Maternidade</h2>
+        <p>Compartilhe sua dúvida ou como está se sentindo. O assistente vai orientar com base em informações confiáveis — e indicar quando é hora de buscar um profissional.</p>
+      </div>
+
+      <div class="api-config">
+        <button class="api-config-toggle" id="apiToggle" aria-expanded="false" aria-controls="apiContent">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Configurar chave de API
+        </button>
+        <div class="api-config-content" id="apiContent">
+          <label for="apiKey">Chave de API (Anthropic Claude)</label>
+          <div class="api-config-row">
+            <input type="password" id="apiKey" placeholder="sk-ant-...">
+            <button class="btn-sm" id="saveKey">Salvar</button>
+          </div>
+          <div id="apiStatus" class="api-status"></div>
+          <p class="api-config-note">
+            A chave fica apenas no seu navegador (localStorage) e nunca é enviada para nossos servidores.
+            Obtenha a sua em <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>.
+            Sem chave, o assistente responderá em <strong>modo demonstração</strong> com respostas pré-definidas.
+          </p>
+        </div>
+      </div>
+
+      <div class="chat-window">
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Conversa com o assistente">
+          <div class="msg assistant">
+            <div class="msg-label">Assistente</div>
+            <div class="msg-bubble">
+              Olá! Estou aqui para ajudar com dúvidas sobre amamentação, sono do bebê, puerpério, saúde emocional e muito mais. Como posso te apoiar hoje?
+              <span class="small">Lembre: não sou médico — para sintomas preocupantes, sempre consulte um profissional.</span>
+            </div>
+          </div>
+          <div class="typing-indicator" id="typing" aria-label="Assistente está digitando">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <form class="chat-input-area" id="chatForm">
+          <label for="chatInput" class="sr-only">Digite sua mensagem</label>
+          <textarea class="chat-input" id="chatInput" rows="1" placeholder="Digite sua dúvida... (Enter envia, Shift+Enter quebra linha)"></textarea>
+          <button type="submit" class="send-btn" id="sendBtn" aria-label="Enviar mensagem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="suggestions" aria-label="Sugestões de perguntas">
+        <button class="suggestion-chip" data-q="Estou com dificuldade para amamentar, o bebê não pega o peito direito.">Dificuldade para amamentar</button>
+        <button class="suggestion-chip" data-q="Meu bebê chora muito à noite e não consigo dormir.">Bebê chorando à noite</button>
+        <button class="suggestion-chip" data-q="Estou me sentindo muito triste depois do parto.">Tristeza pós-parto</button>
+        <button class="suggestion-chip" data-q="Quanto tempo um recém-nascido deve dormir por dia?">Sono do bebê</button>
+        <button class="suggestion-chip" data-q="O que esperar do puerpério nas primeiras semanas?">Puerpério</button>
+      </div>
+
+      <div class="disclaimer-box">
+        <strong>Lembrete importante:</strong> este assistente fornece informações educativas com base em fontes confiáveis (SBP, OMS, Ministério da Saúde). Não realiza diagnósticos. Para sintomas como febre alta, dificuldade respiratória, icterícia intensa, sangramento abundante ou qualquer sinal de emergência — procure atendimento médico imediatamente ou ligue para o <strong>SAMU (192)</strong>.
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sobre">
+    <div class="section-header">
+      <h2 class="section-title">Sobre o projeto</h2>
+      <span class="section-sub">Trabalho acadêmico</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h4>Por que existimos</h4>
+        <p>O Maternidade Inteligente nasceu da percepção de que muitas mães enfrentam o puerpério sem uma rede de apoio sólida. Nosso objetivo é ser um ponto de partida confiável para dúvidas cotidianas — com clareza sobre quando buscar ajuda profissional.</p>
+      </div>
+      <div class="about-card">
+        <h4>Fontes e responsabilidade</h4>
+        <p>O conteúdo é baseado em diretrizes da Sociedade Brasileira de Pediatria (SBP), Organização Mundial da Saúde (OMS) e Ministério da Saúde. Este projeto é educativo e não constitui prestação de serviço médico. Em caso de dúvidas, sempre consulte um profissional de saúde habilitado.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </span>
+      <span class="logo-text">Maternidade <span>Inteligente</span></span>
+    </a>
+    <p class="footer-note">Informações educativas para mães. Não substitui orientação médica. Conteúdo baseado em diretrizes SBP, OMS e Ministério da Saúde.</p>
+  </div>
+  <div class="footer-links">
+    <span class="footer-links-title">Navegação</span>
+    <a href="#topicos">Tópicos</a>
+    <a href="#assistente">Assistente</a>
+    <a href="#sobre">Sobre</a>
+  </div>
+  <div class="footer-links">
+    <span class="footer-links-title">Emergências</span>
+    <a href="tel:192">SAMU · 192</a>
+    <a href="tel:188">CVV · 188</a>
+    <a href="https://www.gov.br/saude" target="_blank" rel="noopener">Ministério da Saúde</a>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  © 2025 Maternidade Inteligente · Projeto acadêmico · Informações educativas · Não substitui consulta médica · Em emergências, ligue <strong>192</strong>
+</div>
+
+<!-- ── DRAWER ── -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-header">
+    <div>
+      <p class="drawer-eyebrow" id="drawerEyebrow">Tópico</p>
+      <h2 id="drawerTitle">—</h2>
+    </div>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script>
+/* ──────────────────────────────────────────────
+   TÓPICOS — conteúdo educativo curado
+   Fontes: SBP, OMS, Ministério da Saúde, Fiocruz
+   ────────────────────────────────────────────── */
+const TOPICS = [
+  {
+    id: 'amamentacao',
+    icon: '🤱',
+    accent: '#C9877A',
+    title: 'Amamentação',
+    summary: 'Pega correta, livre demanda e dúvidas dos primeiros dias.',
+    sections: [
+      { type: 'h', text: 'O que recomenda a OMS' },
+      { type: 'p', text: 'A OMS e o Ministério da Saúde recomendam <strong>aleitamento materno exclusivo até os 6 meses</strong> de vida e complementado até os 2 anos ou mais. O leite materno fornece todos os nutrientes, anticorpos e hidratação que o bebê precisa nesse período.' },
+      { type: 'h', text: 'Sinais de pega correta' },
+      { type: 'l', items: [
+        'Boca bem aberta, abocanhando grande parte da aréola (não só o bico).',
+        'Lábio inferior virado para fora, queixo encostado no peito.',
+        'Bochechas arredondadas durante a sucção (não covinhas).',
+        'Você ouve a deglutição, sem estalos.',
+        'Não há dor — desconforto inicial é normal, dor persistente indica pega errada.'
+      ]},
+      { type: 'h', text: 'Livre demanda' },
+      { type: 'p', text: 'Ofereça o peito sempre que o bebê demonstrar fome (mãos na boca, agitação, busca). Recém-nascidos costumam mamar de <strong>8 a 12 vezes em 24 horas</strong>. Não é necessário cronometrar.' },
+    ],
+    alert: { title: 'Procure ajuda profissional se', text: 'houver dor intensa, fissuras com sangramento, febre acompanhada de mama vermelha e quente (mastite), ou se o bebê não estiver ganhando peso. Procure um pediatra, banco de leite ou consultora de amamentação certificada (IBCLC).' },
+    source: 'Fontes: Sociedade Brasileira de Pediatria (SBP), OMS, Caderneta da Criança — Ministério da Saúde.'
+  },
+  {
+    id: 'sono',
+    icon: '🌙',
+    accent: '#7A9E8A',
+    title: 'Sono do bebê',
+    summary: 'Quanto dorme, sono seguro e regressões esperadas.',
+    sections: [
+      { type: 'h', text: 'Quanto dorme um bebê' },
+      { type: 'l', items: [
+        '<strong>0–3 meses:</strong> 14 a 17 horas por dia, em ciclos curtos de 2–4h.',
+        '<strong>4–11 meses:</strong> 12 a 15 horas, com sonecas diurnas.',
+        '<strong>1–2 anos:</strong> 11 a 14 horas, geralmente com 1–2 sonecas.'
+      ]},
+      { type: 'h', text: 'Sono seguro (prevenção da SMSL)' },
+      { type: 'l', items: [
+        'Sempre coloque o bebê para dormir <strong>de barriga para cima</strong>.',
+        'Berço firme, sem travesseiros, almofadas, protetores ou cobertores soltos.',
+        'Idealmente, o bebê deve dormir <strong>no mesmo quarto dos pais (não na mesma cama)</strong> nos primeiros 6 meses.',
+        'Ambiente sem fumaça de cigarro.',
+        'Roupa adequada à temperatura — evite agasalhar demais.'
+      ]},
+      { type: 'h', text: 'Regressões de sono' },
+      { type: 'p', text: 'É comum o sono "piorar" por volta dos 4, 8 e 12 meses. São fases passageiras associadas ao desenvolvimento neurológico — não são "manhas".' },
+    ],
+    alert: { title: 'Atenção', text: 'Apneias, lábios azulados, dificuldade respiratória ou sono excessivamente profundo com difícil despertar exigem avaliação médica imediata.' },
+    source: 'Fontes: SBP, American Academy of Pediatrics (AAP), Ministério da Saúde.'
+  },
+  {
+    id: 'puerperio',
+    icon: '🌸',
+    accent: '#A85C4E',
+    title: 'Puerpério',
+    summary: 'O que esperar do corpo e da mente nas primeiras semanas.',
+    sections: [
+      { type: 'h', text: 'Mudanças físicas esperadas' },
+      { type: 'l', items: [
+        '<strong>Lóquios:</strong> sangramento vaginal que dura de 4 a 6 semanas, mudando de vermelho vivo para amarelado.',
+        '<strong>Cólicas (entorses uterinos):</strong> o útero contrai para voltar ao tamanho original, principalmente durante as mamadas.',
+        '<strong>Suores noturnos:</strong> ajuste hormonal, normal nas primeiras semanas.',
+        '<strong>Queda de cabelo:</strong> pode ocorrer por volta dos 3 meses pós-parto.'
+      ]},
+      { type: 'h', text: 'Saúde emocional' },
+      { type: 'p', text: 'O <strong>baby blues</strong> (tristeza, choro fácil, ansiedade) atinge cerca de 80% das mulheres nos primeiros 10 dias. Se persistir além de 2 semanas ou for intenso, pode indicar <strong>depressão pós-parto</strong>, que é tratável.' },
+      { type: 'h', text: 'Cuidados essenciais' },
+      { type: 'l', items: [
+        'Descanse sempre que possível — durma quando o bebê dorme.',
+        'Hidrate-se e mantenha alimentação variada.',
+        'Aceite ajuda — você não precisa dar conta de tudo sozinha.'
+      ]},
+    ],
+    alert: { title: 'Procure atendimento imediato se', text: 'sangramento muito intenso (encharcando um absorvente por hora), febre acima de 38°C, dor pélvica forte, sintomas de tromboembolismo (dor/inchaço em uma perna), ou pensamentos de se machucar ou machucar o bebê.' },
+    source: 'Fontes: Ministério da Saúde, FEBRASGO, SBP.'
+  },
+  {
+    id: 'saude-emocional',
+    icon: '💭',
+    accent: '#7A9E8A',
+    title: 'Saúde emocional',
+    summary: 'Baby blues, depressão pós-parto e quando pedir ajuda.',
+    sections: [
+      { type: 'h', text: 'Baby blues × Depressão pós-parto' },
+      { type: 'p', text: 'O <strong>baby blues</strong> é passageiro (até 2 semanas). A <strong>depressão pós-parto</strong> é mais intensa, dura mais e prejudica o cuidado consigo e com o bebê.' },
+      { type: 'h', text: 'Sinais de alerta' },
+      { type: 'l', items: [
+        'Tristeza profunda ou choro frequente por mais de 2 semanas.',
+        'Sensação de incapacidade ou culpa excessiva.',
+        'Dificuldade para se conectar com o bebê.',
+        'Pensamentos de se machucar ou de fazer mal ao bebê.',
+        'Insônia mesmo quando o bebê dorme; ou sono excessivo.',
+        'Ansiedade intensa, ataques de pânico.'
+      ]},
+      { type: 'h', text: 'Onde buscar ajuda' },
+      { type: 'l', items: [
+        '<strong>UBS / posto de saúde:</strong> consulta com clínico ou ginecologista.',
+        '<strong>CAPS (Centro de Atenção Psicossocial):</strong> atendimento gratuito de saúde mental.',
+        '<strong>CVV — 188:</strong> apoio emocional 24h, gratuito e sigiloso.'
+      ]},
+    ],
+    alert: { title: 'Emergência', text: 'Pensamentos de suicídio ou de fazer mal ao bebê são uma emergência. Ligue 188 (CVV) ou 192 (SAMU) imediatamente, ou vá ao pronto-socorro mais próximo.' },
+    source: 'Fontes: Ministério da Saúde, CVV, Federação Brasileira de Psiquiatria.'
+  },
+  {
+    id: 'vacinas',
+    icon: '💉',
+    accent: '#C9877A',
+    title: 'Vacinação',
+    summary: 'Calendário do PNI e por que cada dose é importante.',
+    sections: [
+      { type: 'h', text: 'Calendário básico (primeiros meses)' },
+      { type: 'l', items: [
+        '<strong>Ao nascer:</strong> BCG e Hepatite B.',
+        '<strong>2 meses:</strong> Pentavalente, VIP (poliomielite), Pneumocócica 10, Rotavírus.',
+        '<strong>3 meses:</strong> Meningocócica C.',
+        '<strong>4 meses:</strong> reforço Pentavalente, VIP, Pneumo 10, Rotavírus.',
+        '<strong>5 meses:</strong> reforço Meningo C.',
+        '<strong>6 meses:</strong> Pentavalente, VIP, Influenza (anual).'
+      ]},
+      { type: 'h', text: 'Por que vacinar no prazo' },
+      { type: 'p', text: 'O calendário é desenhado para proteger o bebê justamente nas idades de maior risco. Atrasos comprometem a imunidade. Todas as vacinas do PNI são <strong>gratuitas</strong> nas UBS.' },
+    ],
+    alert: { title: 'Reações comuns × graves', text: 'Febre baixa, vermelhidão local e irritabilidade são esperadas e passam em 24–48h. Procure o serviço de saúde se houver febre acima de 39°C persistente, choro inconsolável por mais de 3 horas ou sinais de reação alérgica.' },
+    source: 'Fonte: Programa Nacional de Imunizações (PNI) — Ministério da Saúde, SBIm.'
+  },
+  {
+    id: 'alimentacao',
+    icon: '🥣',
+    accent: '#A85C4E',
+    title: 'Introdução alimentar',
+    summary: 'Quando começar, o que oferecer e o método BLW.',
+    sections: [
+      { type: 'h', text: 'Quando começar' },
+      { type: 'p', text: 'A introdução alimentar deve começar aos <strong>6 meses</strong>, quando o bebê apresenta sinais de prontidão: senta com pouco apoio, perdeu o reflexo de protrusão da língua, demonstra interesse pela comida.' },
+      { type: 'h', text: 'O que oferecer' },
+      { type: 'l', items: [
+        'Frutas, legumes e verduras (amassados ou em pedaços).',
+        'Cereais, tubérculos, leguminosas (feijão, lentilha).',
+        'Carnes (boi, frango, peixe sem espinha) e ovo inteiro.',
+        '<strong>Sem sal, açúcar ou mel</strong> antes de 1 ano (mel pode causar botulismo).',
+        'Água nas refeições, em pequenos goles.'
+      ]},
+      { type: 'h', text: 'BLW (Baby-Led Weaning)' },
+      { type: 'p', text: 'Método em que o bebê come sozinho com as mãos, em pedaços apropriados. Pode ser combinado com colher (BLISS). Sempre com supervisão constante por risco de engasgo.' },
+    ],
+    alert: { title: 'Sinais de alerta alimentar', text: 'Engasgos frequentes, recusa alimentar persistente, vômitos repetidos, manchas na pele após determinados alimentos — converse com o pediatra. Em caso de engasgo com obstrução, aplique a manobra apropriada para a idade e ligue 192.' },
+    source: 'Fontes: Guia Alimentar para Crianças Brasileiras Menores de 2 Anos — MS, SBP.'
+  },
+  {
+    id: 'colicas',
+    icon: '👶',
+    accent: '#7A9E8A',
+    title: 'Cólicas e choro',
+    summary: 'Como identificar, aliviar e quando se preocupar.',
+    sections: [
+      { type: 'h', text: 'O que são as cólicas' },
+      { type: 'p', text: 'Cólicas do lactente são episódios de choro intenso, sem causa aparente, que ocorrem entre as 2 semanas e 4 meses de vida. Costumam piorar no fim da tarde/noite. <strong>Não há um único culpado</strong> — envolvem maturação do sistema digestivo, neurológico e adaptação.' },
+      { type: 'h', text: 'O que ajuda' },
+      { type: 'l', items: [
+        'Colo, contato pele a pele e movimento (caminhar, balançar).',
+        'Posição de bruços sobre o antebraço ("posição do voo").',
+        'Massagem suave em sentido horário no abdômen.',
+        'Compressas mornas (nunca quentes).',
+        'Reduzir estímulos: luz baixa, ruído suave (ruído branco).',
+        'Para mães que amamentam: avaliar com pediatra dieta materna se houver suspeita de APLV.'
+      ]},
+    ],
+    alert: { title: 'Procure o pediatra se', text: 'choro associado a febre, vômitos em jato, recusa alimentar, sangue nas fezes, distensão abdominal grave, palidez ou letargia. Cólica não causa esses sinais — eles indicam outra causa.' },
+    source: 'Fontes: SBP, Ministério da Saúde.'
+  },
+  {
+    id: 'desenvolvimento',
+    icon: '🧸',
+    accent: '#C9877A',
+    title: 'Desenvolvimento',
+    summary: 'Marcos esperados de 0 a 12 meses.',
+    sections: [
+      { type: 'h', text: 'Marcos do desenvolvimento (referência)' },
+      { type: 'l', items: [
+        '<strong>2 meses:</strong> sorriso social, segue objetos com o olhar.',
+        '<strong>4 meses:</strong> sustenta a cabeça firme, balbucia.',
+        '<strong>6 meses:</strong> rola, leva objetos à boca, começa a sentar com apoio.',
+        '<strong>9 meses:</strong> senta sem apoio, engatinha, faz pinça.',
+        '<strong>12 meses:</strong> fica em pé, dá os primeiros passos com apoio, fala 1–2 palavras.'
+      ]},
+      { type: 'h', text: 'Cada bebê tem seu ritmo' },
+      { type: 'p', text: 'Os marcos são referências de média populacional. Pequenas variações são normais. O importante é que <strong>o bebê esteja progredindo</strong> ao longo do tempo, ainda que em ritmo próprio.' },
+    ],
+    alert: { title: 'Converse com o pediatra se', text: 'aos 4 meses não sustenta a cabeça; aos 9 meses não senta com apoio; aos 12 meses não responde ao próprio nome ou não emite sons; perda de habilidades já adquiridas; falta de contato visual sustentado.' },
+    source: 'Fontes: Caderneta da Criança — Ministério da Saúde, SBP, AAP.'
+  }
+];
+
+/* ──────────────────────────────────────────────
+   RENDER TÓPICOS
+   ────────────────────────────────────────────── */
+const grid = document.getElementById('topicGrid');
+TOPICS.forEach(t => {
+  const card = document.createElement('button');
+  card.className = 'topic-card';
+  card.style.setProperty('--card-accent', t.accent);
+  card.setAttribute('aria-label', `Abrir tópico: ${t.title}`);
+  card.innerHTML = `
+    <span class="topic-icon" aria-hidden="true">${t.icon}</span>
+    <h3>${t.title}</h3>
+    <p>${t.summary}</p>
+    <span class="read-more">Ler mais →</span>
+  `;
+  card.addEventListener('click', () => openTopic(t));
+  grid.appendChild(card);
+});
+
+/* ──────────────────────────────────────────────
+   DRAWER
+   ────────────────────────────────────────────── */
+const drawer = document.getElementById('drawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+const drawerTitle = document.getElementById('drawerTitle');
+const drawerEyebrow = document.getElementById('drawerEyebrow');
+const drawerBody = document.getElementById('drawerBody');
+const drawerClose = document.getElementById('drawerClose');
+
+function openTopic(t) {
+  drawerEyebrow.textContent = t.icon + '  Tópico';
+  drawerTitle.textContent = t.title;
+  let html = '';
+  t.sections.forEach(s => {
+    if (s.type === 'h') html += `<h4>${s.text}</h4>`;
+    if (s.type === 'p') html += `<p>${s.text}</p>`;
+    if (s.type === 'l') html += `<ul>${s.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  });
+  if (t.alert) html += `<div class="alert-box"><h5>⚠ ${t.alert.title}</h5><p>${t.alert.text}</p></div>`;
+  if (t.source) html += `<div class="source-note">${t.source}</div>`;
+  drawerBody.innerHTML = html;
+  drawer.classList.add('open');
+  drawerOverlay.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  drawerClose.focus();
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  drawerOverlay.classList.remove('open');
+  drawer.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+drawerClose.addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+/* ──────────────────────────────────────────────
+   API CONFIG
+   ────────────────────────────────────────────── */
+const apiToggle = document.getElementById('apiToggle');
+const apiContent = document.getElementById('apiContent');
+const apiKeyInput = document.getElementById('apiKey');
+const apiStatus = document.getElementById('apiStatus');
+const saveKeyBtn = document.getElementById('saveKey');
+
+apiToggle.addEventListener('click', () => {
+  const open = apiContent.classList.toggle('show');
+  apiToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const savedKey = localStorage.getItem('mi_api_key');
+if (savedKey) {
+  apiKeyInput.value = savedKey;
+  apiStatus.textContent = '✓ Chave configurada';
+  apiStatus.className = 'api-status ok';
+}
+saveKeyBtn.addEventListener('click', () => {
+  const k = apiKeyInput.value.trim();
+  if (!k) {
+    localStorage.removeItem('mi_api_key');
+    apiStatus.textContent = 'Chave removida — usando modo demonstração';
+    apiStatus.className = 'api-status err';
+    return;
+  }
+  if (!k.startsWith('sk-ant-')) {
+    apiStatus.textContent = '⚠ A chave Anthropic deve começar com "sk-ant-"';
+    apiStatus.className = 'api-status err';
+    return;
+  }
+  localStorage.setItem('mi_api_key', k);
+  apiStatus.textContent = '✓ Chave salva no seu navegador';
+  apiStatus.className = 'api-status ok';
+});
+
+/* ──────────────────────────────────────────────
+   CHAT
+   ────────────────────────────────────────────── */
+const chatMessages = document.getElementById('chatMessages');
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+const typing = document.getElementById('typing');
+
+const SYSTEM_PROMPT = `Você é uma assistente educativa especializada em maternidade, com tom acolhedor, empático e profissional. Responda em português brasileiro.
+
+REGRAS:
+1. Sempre baseie suas respostas em diretrizes da Sociedade Brasileira de Pediatria (SBP), OMS e Ministério da Saúde.
+2. Você NÃO é médica e NÃO faz diagnósticos. Sempre oriente buscar um profissional para sintomas específicos.
+3. Em sinais de emergência (febre alta, dificuldade respiratória, sangramento intenso, pensamentos de autoagressão), oriente IMEDIATAMENTE a procurar SAMU 192, CVV 188 ou pronto-socorro.
+4. Use linguagem clara, sem jargão excessivo. Acolha a mãe — ela pode estar exausta e vulnerável.
+5. Respostas curtas (máximo 4 parágrafos), com listas quando útil.
+6. Se a pergunta não tiver relação com maternidade/cuidado infantil/saúde da mãe, redirecione gentilmente.
+7. Sempre termine reforçando: "Para o seu caso específico, consulte um profissional de saúde."`;
+
+const conversation = [];
+
+const EMERGENCY_KEYWORDS = ['suicídio','suicidio','me matar','morrer','machucar o bebê','machucar o bebe','sangrando muito','não consigo respirar','nao consigo respirar','convulsão','convulsao','febre 40','desmaiou'];
+
+function isEmergency(text) {
+  const t = text.toLowerCase();
+  return EMERGENCY_KEYWORDS.some(k => t.includes(k));
+}
+
+function addMessage(role, text, isAlert=false) {
+  const wrap = document.createElement('div');
+  wrap.className = `msg ${role}` + (isAlert ? ' alert-msg' : '');
+  wrap.innerHTML = `
+    <div class="msg-label">${role === 'user' ? 'Você' : 'Assistente'}</div>
+    <div class="msg-bubble">${text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+  `;
+  chatMessages.insertBefore(wrap, typing);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping(show) {
+  typing.classList.toggle('show', show);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/* Demo responses (sem API key) */
+const DEMO_REPLIES = {
+  amament: 'Ofereça o peito em livre demanda — bebês recém-nascidos costumam mamar de 8 a 12 vezes em 24h. Sinais de boa pega: boca bem aberta, lábio inferior virado para fora, queixo encostado no peito e sem dor. Se estiver com dor persistente, fissuras ou febre, procure um banco de leite ou pediatra. Para o seu caso específico, consulte um profissional de saúde.',
+  chor: 'Choro noturno é muito comum nos primeiros meses. Tente: colo, contato pele a pele, ruído branco, posição de bruços sobre o antebraço, massagem suave no abdômen. Se vier acompanhado de febre, vômitos, recusa alimentar ou letargia, procure o pediatra imediatamente. Para o seu caso específico, consulte um profissional de saúde.',
+  trist: 'Sentir tristeza após o parto é mais comum do que se imagina — cerca de 80% das mães passam pelo "baby blues" nos primeiros 10 dias. Se a tristeza for intensa, durar mais de 2 semanas ou afetar o cuidado com o bebê, pode ser depressão pós-parto, que tem tratamento. Procure uma UBS, CAPS ou ligue para o CVV (188). Você não está sozinha. Para o seu caso específico, consulte um profissional de saúde.',
+  sono: 'Recém-nascidos (0–3 meses) dormem de 14 a 17h por dia em ciclos curtos de 2–4h. De 4–11 meses, 12 a 15h com sonecas diurnas. Sempre coloque o bebê de barriga para cima, em berço firme, sem travesseiros ou cobertores soltos. Para o seu caso específico, consulte um profissional de saúde.',
+  puer: 'O puerpério (até 6 semanas) traz mudanças importantes: lóquios (sangramento que dura semanas), cólicas uterinas, suores, oscilações emocionais. Descanse quando possível, hidrate-se e aceite ajuda. Procure atendimento se houver sangramento muito intenso, febre acima de 38°C ou pensamentos preocupantes. Para o seu caso específico, consulte um profissional de saúde.',
+};
+function getDemoReply(text) {
+  const t = text.toLowerCase();
+  if (t.includes('amament') || t.includes('peito') || t.includes('leite')) return DEMO_REPLIES.amament;
+  if (t.includes('chor') || t.includes('cólic') || t.includes('colic')) return DEMO_REPLIES.chor;
+  if (t.includes('trist') || t.includes('deprim') || t.includes('chorando muito') || t.includes('ansied')) return DEMO_REPLIES.trist;
+  if (t.includes('sono') || t.includes('dormir') || t.includes('soneca')) return DEMO_REPLIES.sono;
+  if (t.includes('puerp') || t.includes('pós-parto') || t.includes('pos-parto') || t.includes('sangra')) return DEMO_REPLIES.puer;
+  return 'Obrigada por compartilhar. Estou em modo demonstração no momento — para respostas mais detalhadas e personalizadas, configure sua chave da API Anthropic acima. Enquanto isso, explore os tópicos acima para informações sobre amamentação, sono, puerpério, vacinas e mais. Para qualquer sintoma preocupante, procure um profissional de saúde.';
+}
+
+async function callClaude(userText) {
+  const key = localStorage.getItem('mi_api_key');
+  if (!key) {
+    await new Promise(r => setTimeout(r, 800 + Math.random() * 600));
+    return getDemoReply(userText);
+  }
+  conversation.push({ role: 'user', content: userText });
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 800,
+        system: SYSTEM_PROMPT,
+        messages: conversation
+      })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`API ${res.status}: ${err.slice(0, 120)}`);
+    }
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Não consegui gerar uma resposta.';
+    conversation.push({ role: 'assistant', content: reply });
+    return reply;
+  } catch (e) {
+    console.error(e);
+    return `Tive um problema para conectar à API (${e.message}). Você pode verificar sua chave nas configurações ou usar o modo demonstração removendo a chave.`;
+  }
+}
+
+async function sendMessage(text) {
+  if (!text.trim()) return;
+  addMessage('user', text);
+  chatInput.value = '';
+  chatInput.style.height = '48px';
+  sendBtn.disabled = true;
+
+  if (isEmergency(text)) {
+    showTyping(true);
+    await new Promise(r => setTimeout(r, 500));
+    showTyping(false);
+    addMessage('assistant',
+      '⚠ Identifiquei sinais que podem indicar uma emergência. Por favor, busque ajuda AGORA:\n\n• SAMU: 192 (emergências médicas)\n• CVV: 188 (apoio emocional, 24h, gratuito)\n• Pronto-socorro mais próximo\n\nVocê não precisa enfrentar isso sozinha. Há pessoas treinadas prontas para ajudar.',
+      true
+    );
+    sendBtn.disabled = false;
+    return;
+  }
+
+  showTyping(true);
+  const reply = await callClaude(text);
+  showTyping(false);
+  addMessage('assistant', reply);
+  sendBtn.disabled = false;
+}
+
+chatForm.addEventListener('submit', e => {
+  e.preventDefault();
+  sendMessage(chatInput.value);
+});
+chatInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage(chatInput.value);
+  }
+});
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = '48px';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 140) + 'px';
+});
+
+document.querySelectorAll('.suggestion-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const q = btn.dataset.q;
+    chatInput.value = q;
+    sendMessage(q);
+  });
+});
+</script>
+
+</body>
+</html>
