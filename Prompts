@@ -48,14 +48,13 @@ Use linguagem acessível, sem jargão médico excessivo.
 ### Prompt 3 — Sistema de design e paleta
 
 ```
-Defina um sistema de design CSS com custom properties para uma 
+Defina um sistema de design CSS para uma 
 plataforma de saúde materna. A paleta deve transmitir:
 - Acolhimento e segurança (não frio/clínico)
 - Profissionalismo discreto
 - Clareza na leitura
 
-Use tons de creme, rose empoeirado, terracota, sage/verde-cinza.
-Crie variáveis para: cores base, sombras, estados de alerta (warning/danger).
+Use tons de creme, rose , terracota,verde-cinza.
 ```
 
 ---
@@ -74,16 +73,7 @@ Implemente um drawer lateral em JavaScript puro (sem bibliotecas) que:
 
 ---
 
-### Prompt 5 — Integração com Claude API + modo demo
-
-```
-Implemente a função callClaude() que:
-1. Verifica se há chave API no localStorage
-2. Se SIM: faz fetch() para api.anthropic.com/v1/messages com 
-   o histórico de conversa (multi-turno)
-3. Se NÃO: retorna resposta pré-definida baseada em palavras-chave 
-   (amamentação, choro, tristeza, sono, puerpério) com delay simulado
-
+#
 Adicione detector de emergências client-side que, antes de qualquer 
 resposta, verifica palavras como 'suicídio', 'convulsão', 'febre 40' 
 e exibe mensagem de emergência com SAMU e CVV.
