@@ -1,0 +1,154 @@
+# 📖 Memorial de Construção — Maternidade Inteligente
+
+## Contexto e Motivação
+
+O projeto nasceu da observação de uma lacuna real: mães no puerpério enfrentam dúvidas intensas e frequentes — sobre amamentação, sono, saúde emocional — justamente no momento em que têm menos tempo e energia para pesquisar. As fontes disponíveis na internet são fragmentadas, muitas vezes contraditórias, e raramente acolhedoras.
+
+A proposta foi criar um protótipo que unisse **informação confiável** (baseada em SBP, OMS e Ministério da Saúde) com **linguagem empática** e **acesso fácil** — e que demonstrasse como a IA generativa pode ser usada de forma responsável nesse contexto.
+
+---
+
+## Processo de Construção
+
+### Fase 1 — Definição do Problema e Escopo
+
+**Decisões tomadas:**
+- Foco no recorte 0–12 meses de vida do bebê
+- Público: mães (principalmente primíparas) em situação de dúvida cotidiana
+- Tom: acolhedor, sem jargão médico excessivo
+- Limite claro: informativo, não diagnóstico
+
+**O que foi descartado:**
+- App nativo (escopo demais para protótipo)
+- Backend próprio (aumentaria complexidade sem ganho para a demo)
+- Cadastro/login (barreira desnecessária)
+
+---
+
+### Fase 2 — Arquitetura da Informação
+
+**Tópicos selecionados** com base em pesquisa de dúvidas mais comuns de mães:
+1. Amamentação — maior fonte de ansiedade nos primeiros dias
+2. Sono do bebê — afeta diretamente a saúde mental materna
+3. Puerpério — fase invisível e mal compreendida
+4. Saúde emocional — depressão pós-parto é subdiagnosticada
+5. Vacinação — dúvidas sobre calendário são universais
+6. Introdução alimentar — tema com muito mito e desinformação
+7. Cólicas e choro — causa de estresse e sentimento de incompetência
+8. Desenvolvimento 0–12 meses — marcos que geram ansiedade
+
+**Cada tópico estruturado em:**
+- Resumo (para o cartão)
+- Seções de conteúdo (texto + listas)
+- Alerta de emergência (quando procurar médico)
+- Nota de fonte (credibilidade)
+
+---
+
+### Fase 3 — Design Visual e UX
+
+**Princípios adotados:**
+- **Calma visual:** paleta creme, blush, terracota — cores associadas a acolhimento
+- **Tipografia com personalidade:** DM Serif Display (títulos, emocional) + DM Sans (corpo, clareza)
+- **Hierarquia clara:** banner de aviso → hero → tópicos → chat → sobre
+- **Mobile-first:** layout responsivo com breakpoints em 720px e 460px
+- **Acessibilidade:** skip-link, aria-labels, focus-visible, live regions no chat
+
+**Sistema de cores (CSS Custom Properties):**
+```css
+--cream: #FAF7F2        /* fundo principal — calmante */
+--dusty-rose: #C9877A   /* destaque suave */
+--terracotta: #A85C4E   /* CTA e interações */
+--sage: #7A9E8A         /* notas de fonte — confiança */
+--warning-bg / danger   /* alertas de emergência */
+```
+
+---
+
+### Fase 4 — Construção Técnica
+
+**Decisão de stack:** HTML/CSS/JS puro (vanilla)
+- Sem framework: zero dependência, zero build step, roda em qualquer servidor estático
+- Todo o conteúdo dos 8 tópicos em um array JavaScript estruturado (TOPICS[])
+- Drawer lateral renderizado dinamicamente via JS
+- Chat mantém histórico de conversa em array local (multi-turno com Claude)
+
+**Integração com Claude API:**
+```
+Endpoint: POST https://api.anthropic.com/v1/messages
+Modelo:   claude-3-5-sonnet-20241022
+Tokens:   max 800 (respostas concisas)
+Header:   anthropic-dangerous-direct-browser-access: true
+Memória:  array conversation[] mantido em runtime
+```
+
+**System prompt elaborado para:**
+- Tom acolhedor e profissional
+- Basear-se em SBP/OMS/MS
+- Limite de 4 parágrafos por resposta
+- Redirecionar emergências a SAMU/CVV
+- Não fazer diagnósticos
+
+---
+
+### Fase 5 — Segurança e Responsabilidade
+
+**Mecanismos implementados:**
+1. **Detector de emergência client-side:** lista de 14 palavras-chave (suicídio, convulsão, febre 40, etc.) que acionam resposta de emergência com SAMU/CVV antes mesmo de chamar a API
+2. **Banner permanente de aviso:** visível em todas as páginas
+3. **Disclaimer em todo resultado do chat**
+4. **Chave API nunca enviada a servidor próprio:** fica apenas no localStorage do usuário
+5. **Modo demonstração:** funciona sem API key, com respostas pré-definidas seguras
+
+**Considerações éticas:**
+- O assistente sempre termina com "consulte um profissional de saúde"
+- Conteúdo baseado exclusivamente em fontes oficiais
+- Não cria dependência: encoraja busca por profissionais
+
+---
+
+### Fase 6 — Testes e Refinamentos
+
+**Cenários testados:**
+- Usuária sem chave API (modo demo funcional)
+- Palavras de emergência no input (resposta correta antes da API)
+- Navegação por teclado (acessibilidade)
+- Visualização mobile (< 460px)
+- Chat multi-turno (conversa com contexto)
+- Drawer nos 8 tópicos
+
+---
+
+## Ferramentas Utilizadas
+
+| Ferramenta | Uso |
+|---|---|
+| **Claude (Anthropic)** | Geração e refinamento do código |
+| **Claude API** | Motor do assistente no protótipo |
+| **Google Fonts** | Tipografia DM Serif + DM Sans |
+| **VS Code / editor** | Revisão e edição do código |
+| **Navegador (DevTools)** | Testes de responsividade e JS |
+
+---
+
+## Aprendizados e Limitações
+
+**O que funcionou bem:**
+- HTML/CSS puro permitiu prototipagem rápida
+- System prompt bem elaborado resultou em respostas consistentes
+- Modo demo permite demonstração sem custo de API
+- Design acolhedor foi validado informalmente com usuárias
+
+**Limitações reconhecidas:**
+- Sem persistência real (histórico some ao recarregar)
+- Sem moderação de conteúdo avançada (além das palavras-chave)
+- Sem rastreamento de métricas de uso
+- Conteúdo dos tópicos é estático (não atualiza automaticamente)
+- Sem suporte a voz (barreira para mães com bebê no colo)
+
+**Próximos passos naturais:**
+- Backend com autenticação e histórico persistente
+- Integração com telemedicina (encaminhamento ao médico)
+- App móvel com notificações e marco tracker
+- Atualização automática de conteúdo via CMS
+
