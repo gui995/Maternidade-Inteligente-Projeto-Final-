@@ -1,0 +1,219 @@
+# ✅ Evidências da Solução Proposta — Maternidade Inteligente
+
+Este documento reúne as evidências que demonstram que a solução funciona, é segura e atende à proposta original.
+
+---
+
+## 1. Protótipo Navegável
+
+**Arquivo:** `index.html` (raiz do repositório)
+
+**Como acessar:**
+- Abrir diretamente no navegador (Chrome, Firefox, Edge, Safari)
+- Sem instalação, sem servidor, sem dependência de backend
+
+**Funcionalidades verificáveis:**
+- [ ] Navegação entre seções via âncoras (#topicos, #assistente, #sobre)
+- [ ] Abertura e fechamento de drawer em todos os 8 tópicos
+- [ ] Chat em modo demonstração (sem chave de API)
+- [ ] Detecção de palavras de emergência (ex: digitar "suicídio")
+- [ ] Configuração e validação da chave de API
+- [ ] Layout responsivo em mobile (< 720px)
+
+---
+
+## 2. Telas Conceituais — Seções do Protótipo
+
+### Tela 1 — Banner de Aviso + Header
+```
+┌─────────────────────────────────────────────────────────┐
+│ ⚠ Aviso: conteúdo educativo. Sintomas: procure médico  │  ← Banner amarelo
+│                         SAMU: 192                       │
+├─────────────────────────────────────────────────────────┤
+│ 🤱 Maternidade Inteligente   Tópicos | Assistente | Sobre │  ← Nav sticky
+└─────────────────────────────────────────────────────────┘
+```
+
+### Tela 2 — Hero Section
+```
+┌─────────────────────────────────────────────────────────┐
+│                                          ○ (blob rosa)  │
+│  Apoio informativo para mães                            │
+│                                                         │
+│  Você não precisa navegar                               │
+│  *sozinha* nessa fase.                                  │
+│                                                         │
+│  Informações confiáveis sobre amamentação, sono,        │
+│  puerpério e saúde emocional.                           │
+│                                                         │
+│  [Falar com o assistente →]  [Explorar tópicos]         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Tela 3 — Grid de Tópicos (8 cards)
+```
+┌────────────┐ ┌────────────┐ ┌────────────┐
+│ 🤱          │ │ 😴          │ │ 💛          │
+│ Amamentação │ │ Sono        │ │ Puerpério   │
+│ Pega, livre │ │ Ciclos,     │ │ Lóquios,   │
+│ demanda...  │ │ posição...  │ │ emoções... │
+│ Ler mais → │ │ Ler mais → │ │ Ler mais → │
+└────────────┘ └────────────┘ └────────────┘
+(+ 5 cards: saúde emocional, vacinação, alimentação, cólicas, desenvolvimento)
+```
+
+### Tela 4 — Drawer Lateral (tópico expandido)
+```
+                    ┌──────────────────────────────────┐
+                    │ 🤱 Tópico                     [X] │
+                    │ Amamentação                       │
+                    ├──────────────────────────────────┤
+                    │ COMO AMAMENTAR COM SUCESSO        │
+                    │ Ofereça o peito em livre demanda  │
+                    │ ...                               │
+                    │                                   │
+                    │ SINAIS DE BOA PEGA                │
+                    │ • Boca bem aberta                 │
+                    │ • Lábio inferior virado           │
+                    │ • Queixo no peito                 │
+                    │                                   │
+                    │ ⚠ Procure um médico se           │
+                    │ dor intensa, fissuras, febre...   │
+                    │                                   │
+                    │ 📗 Fonte: SBP, OMS, MS            │
+                    └──────────────────────────────────┘
+```
+
+### Tela 5 — Chat com Assistente
+```
+┌─────────────────────────────────────────────────────────┐
+│  Assistente de Maternidade                              │
+│  ─────────────────────────────────────────             │
+│  [⚙ Configurar chave de API]                           │
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │ Assistente: Olá! Estou aqui para ajudar...      │   │
+│  │                                                 │   │
+│  │                     Você: Estou com dificuldade │   │
+│  │                     para amamentar ────────────►│   │
+│  │                                                 │   │
+│  │ Assistente: Ofereça o peito em livre demanda... │   │
+│  │             •••  (typing)                       │   │
+│  │                                                 │   │
+│  │ [Digite sua dúvida...]              [Enviar →]  │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                         │
+│  [Dificuldade amamentar] [Bebê chorando] [Tristeza]    │
+│                                                         │
+│  ⚠ Este assistente fornece informações educativas...   │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. Fluxo Desenhado — Jornada da Usuária
+
+```
+Mãe com dúvida
+      │
+      ├─→ Acessa o site
+      │         │
+      │         ├─→ Lê banner de aviso
+      │         │
+      │         ├─→ Vê hero com CTA claro
+      │         │
+      │         ├─→ CAMINHO 1: Explorar Tópicos
+      │         │       │
+      │         │       ├─→ Clica num card
+      │         │       ├─→ Drawer abre com conteúdo
+      │         │       ├─→ Lê, fecha drawer
+      │         │       └─→ Vai para o chat se quiser aprofundar
+      │         │
+      │         └─→ CAMINHO 2: Falar com Assistente
+      │                 │
+      │                 ├─→ Usa chip de sugestão ou digita
+      │                 │
+      │                 ├─→ [Palavra de emergência?]
+      │                 │       SIM → Resposta de emergência (SAMU/CVV)
+      │                 │       NÃO ↓
+      │                 │
+      │                 ├─→ [Tem chave API?]
+      │                 │       NÃO → Demo response (~1s)
+      │                 │       SIM → Claude API response (~3s)
+      │                 │
+      │                 └─→ Recebe resposta + "consulte um profissional"
+      │
+      └─→ Resolve dúvida ou é direcionada ao profissional
+```
+
+---
+
+## 4. Automação Simulada — Modo Demonstração
+
+O sistema opera sem API em modo autônomo, cobrindo os principais temas:
+
+| Palavra-chave detectada | Resposta automática sobre |
+|---|---|
+| `amament`, `peito`, `leite` | Técnica de amamentação e pega |
+| `chor`, `cólic` | Cólicas e técnicas de acalmar |
+| `trist`, `deprim`, `ansied` | Baby blues e depressão pós-parto |
+| `sono`, `dormir`, `soneca` | Horas de sono por faixa etária |
+| `puerp`, `pós-parto`, `sangra` | O que esperar do puerpério |
+| Qualquer outra pergunta | Convite para configurar API |
+
+---
+
+## 5. Estrutura de Integração entre Ferramentas
+
+```
+USUÁRIA
+   │
+   │ HTTPS (browser)
+   ▼
+index.html (frontend estático)
+   │
+   │ fetch() com header:
+   │   x-api-key: [chave do usuário]
+   │   anthropic-version: 2023-06-01
+   │   anthropic-dangerous-direct-browser-access: true
+   │
+   ▼
+api.anthropic.com/v1/messages
+   │
+   │ JSON response:
+   │   { content: [{ type: "text", text: "..." }] }
+   │
+   ▼
+Renderizado no chat (innerHTML + scroll)
+```
+
+**Sem intermediário:** a chave vai direto do localStorage do usuário para a API, sem passar por nenhum servidor do projeto.
+
+---
+
+## 6. Estimativa de Funcionamento do Ecossistema
+
+| Métrica | Valor estimado |
+|---|---|
+| Tempo de carregamento | < 1 segundo |
+| Resposta modo demo | 800–1.400ms (simulado) |
+| Resposta via API | 2–5 segundos |
+| Tokens por resposta | ~400–800 tokens |
+| Custo por conversa (Sonnet) | ~US$ 0,002–0,005 |
+| Custo de hospedagem | Zero (arquivo estático) |
+| Usuários simultâneos suportados | Ilimitado (sem backend) |
+| Disponibilidade | Depende só do GitHub Pages / Netlify |
+
+---
+
+## 7. Checklist de Segurança Implementado
+
+- [x] Conteúdo baseado em fontes oficiais (SBP, OMS, MS)
+- [x] Disclaimers em todos pontos de contato
+- [x] Detector de emergências antes de qualquer resposta de IA
+- [x] Sistema prompt proibindo diagnósticos
+- [x] Chave de API nunca enviada a servidor próprio
+- [x] Modo demo com respostas pré-revisadas e seguras
+- [x] Links de emergência (SAMU/CVV) no rodapé e nas respostas
+- [x] Acessibilidade: screen readers, teclado, contraste
+
