@@ -73,14 +73,6 @@ A proposta foi criar um protótipo que unisse **informação confiável** (basea
 - Drawer lateral renderizado dinamicamente via JS
 - Chat mantém histórico de conversa em array local (multi-turno com Claude)
 
-**Integração com Claude API:**
-```
-Endpoint: POST https://api.anthropic.com/v1/messages
-Modelo:   claude-3-5-sonnet-20241022
-Tokens:   max 800 (respostas concisas)
-Header:   anthropic-dangerous-direct-browser-access: true
-Memória:  array conversation[] mantido em runtime
-```
 
 **System prompt elaborado para:**
 - Tom acolhedor e profissional
