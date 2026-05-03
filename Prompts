@@ -1,0 +1,174 @@
+# 💬 Prompts Utilizados — Maternidade Inteligente
+
+Este documento registra os principais prompts utilizados tanto na **construção do projeto** (com IA generativa) quanto os prompts **embutidos no produto** (que definem o comportamento do assistente).
+
+---
+
+## 1. Prompts de Construção do Produto
+
+Estes prompts foram usados durante o desenvolvimento para gerar e refinar o código e o conteúdo.
+
+---
+
+### Prompt 1 — Estrutura inicial do projeto
+
+```
+Crie uma aplicação web em HTML/CSS/JS puro para apoio informativo 
+a mães no puerpério. O site deve ter:
+- Design acolhedor com paleta creme e tons terrosa/rose
+- Seção de tópicos com cards clicáveis (amamentação, sono, puerpério, 
+  saúde emocional)
+- Chat integrado com a API Claude (Anthropic)
+- Banner de aviso que não substitui orientação médica
+- Destaque para números de emergência: SAMU 192 e CVV 188
+- Responsivo para mobile
+```
+
+---
+
+### Prompt 2 — Expansão dos tópicos de conteúdo
+
+```
+Para cada um dos 8 tópicos abaixo, crie um objeto JavaScript com:
+- id, icon (emoji), accent (cor hex), title, summary
+- sections: array com objetos tipo 'h' (subtítulo), 'p' (parágrafo), 
+  'l' (lista de itens com HTML inline)
+- alert: { title, text } — quando buscar médico
+- source: string com as fontes (SBP, OMS, Ministério da Saúde)
+
+Tópicos: amamentação, sono, puerpério, saúde emocional, vacinação, 
+introdução alimentar, cólicas, desenvolvimento 0-12 meses
+
+Baseie todo o conteúdo em diretrizes da SBP, OMS e Ministério da Saúde.
+Use linguagem acessível, sem jargão médico excessivo.
+```
+
+---
+
+### Prompt 3 — Sistema de design e paleta
+
+```
+Defina um sistema de design CSS com custom properties para uma 
+plataforma de saúde materna. A paleta deve transmitir:
+- Acolhimento e segurança (não frio/clínico)
+- Profissionalismo discreto
+- Clareza na leitura
+
+Use tons de creme, rose empoeirado, terracota, sage/verde-cinza.
+Crie variáveis para: cores base, sombras, estados de alerta (warning/danger).
+```
+
+---
+
+### Prompt 4 — Drawer lateral interativo
+
+```
+Implemente um drawer lateral em JavaScript puro (sem bibliotecas) que:
+- Abre ao clicar nos topic cards
+- Renderiza dinamicamente o conteúdo do tópico selecionado
+- Fecha com botão X, clique no overlay ou tecla Escape
+- Tem animação CSS suave (transform translateX)
+- Trava o scroll do body quando aberto
+- Gerencia foco corretamente para acessibilidade (aria-hidden, focus)
+```
+
+---
+
+### Prompt 5 — Integração com Claude API + modo demo
+
+```
+Implemente a função callClaude() que:
+1. Verifica se há chave API no localStorage
+2. Se SIM: faz fetch() para api.anthropic.com/v1/messages com 
+   o histórico de conversa (multi-turno)
+3. Se NÃO: retorna resposta pré-definida baseada em palavras-chave 
+   (amamentação, choro, tristeza, sono, puerpério) com delay simulado
+
+Adicione detector de emergências client-side que, antes de qualquer 
+resposta, verifica palavras como 'suicídio', 'convulsão', 'febre 40' 
+e exibe mensagem de emergência com SAMU e CVV.
+```
+
+---
+
+### Prompt 6 — Refinamento de acessibilidade
+
+```
+Revise o HTML para garantir acessibilidade WCAG AA:
+- Adicione skip-link para o conteúdo principal
+- Use aria-label em todos elementos interativos sem texto visível
+- Adicione role="log" e aria-live="polite" na área de chat
+- Garanta focus-visible visível em todos elementos focáveis
+- Use sr-only para textos apenas para leitores de tela
+- Revise a ordem de tabulação
+```
+
+---
+
+## 2. System Prompt Embutido no Produto
+
+Este é o prompt que define o comportamento do assistente dentro da aplicação. Está hardcoded no `index.html`:
+
+```
+Você é uma assistente educativa especializada em maternidade, 
+com tom acolhedor, empático e profissional. Responda em português brasileiro.
+
+REGRAS:
+1. Sempre baseie suas respostas em diretrizes da Sociedade Brasileira 
+   de Pediatria (SBP), OMS e Ministério da Saúde.
+
+2. Você NÃO é médica e NÃO faz diagnósticos. Sempre oriente buscar 
+   um profissional para sintomas específicos.
+
+3. Em sinais de emergência (febre alta, dificuldade respiratória, 
+   sangramento intenso, pensamentos de autoagressão), oriente 
+   IMEDIATAMENTE a procurar SAMU 192, CVV 188 ou pronto-socorro.
+
+4. Use linguagem clara, sem jargão excessivo. Acolha a mãe — ela 
+   pode estar exausta e vulnerável.
+
+5. Respostas curtas (máximo 4 parágrafos), com listas quando útil.
+
+6. Se a pergunta não tiver relação com maternidade/cuidado infantil/
+   saúde da mãe, redirecione gentilmente.
+
+7. Sempre termine reforçando: "Para o seu caso específico, consulte 
+   um profissional de saúde."
+```
+
+---
+
+## 3. Palavras-Chave de Emergência (Detector Client-Side)
+
+Lista implementada diretamente no JS, verificada **antes** de qualquer chamada à API:
+
+```javascript
+const EMERGENCY_KEYWORDS = [
+  'suicídio', 'suicidio',
+  'me matar', 'morrer',
+  'machucar o bebê', 'machucar o bebe',
+  'sangrando muito',
+  'não consigo respirar', 'nao consigo respirar',
+  'convulsão', 'convulsao',
+  'febre 40',
+  'desmaiou'
+];
+```
+
+Quando detectadas, o sistema exibe imediatamente:
+> ⚠ SAMU: 192 | CVV: 188 | Pronto-socorro mais próximo
+
+---
+
+## 4. Chips de Sugestão (Perguntas Pré-Definidas)
+
+Perguntas rápidas que preenchem o chat com um clique — reduzem a fricção para usuárias que não sabem como formular a dúvida:
+
+```
+"Estou com dificuldade para amamentar, o bebê não pega o peito direito."
+"Meu bebê chora muito à noite e não consigo dormir."
+"Estou me sentindo muito triste depois do parto."
+"Quanto tempo um recém-nascido deve dormir por dia?"
+"O que esperar do puerpério nas primeiras semanas?"
+```
+
