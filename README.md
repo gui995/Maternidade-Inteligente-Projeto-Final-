@@ -19,7 +19,7 @@ maternidade-inteligente/
     ├── ECOSSISTEMA.md      # Diagrama e descrição do ecossistema
     ├── PROMPTS.md          # Prompts utilizados na construção com IA
     ├── EVIDENCIAS.md       # Evidências da solução proposta
-                            #Prompt de orientação
+                            # Prompt de orientação
 ```
 
 ---
