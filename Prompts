@@ -1,97 +1,4 @@
-# 💬 Prompts Utilizados — Maternidade Inteligente
 
-Este documento registra os principais prompts utilizados tanto na **construção do projeto** (com IA generativa) quanto os prompts **embutidos no produto** (que definem o comportamento do assistente).
-
----
-
-## 1. Prompts de Construção do Produto
-
-Estes prompts foram usados durante o desenvolvimento para gerar e refinar o código e o conteúdo.
-
----
-
-### Prompt 1 — Estrutura inicial do projeto
-
-```
-Crie uma aplicação web em HTML/CSS/JS puro para apoio informativo 
-a mães no puerpério. O site deve ter:
-- Design acolhedor com paleta creme e tons terrosa/rose
-- Seção de tópicos com cards clicáveis (amamentação, sono, puerpério, 
-  saúde emocional)
-- Chat integrado com a API Claude (Anthropic)
-- Banner de aviso que não substitui orientação médica
-- Destaque para números de emergência: SAMU 192 e CVV 188
-- Responsivo para mobile
-```
-
----
-
-### Prompt 2 — Expansão dos tópicos de conteúdo
-
-```
-Para cada um dos 8 tópicos abaixo, crie um objeto JavaScript com:
-- id, icon (emoji), accent (cor hex), title, summary
-- sections: array com objetos tipo 'h' (subtítulo), 'p' (parágrafo), 
-  'l' (lista de itens com HTML inline)
-- alert: { title, text } — quando buscar médico
-- source: string com as fontes (SBP, OMS, Ministério da Saúde)
-
-Tópicos: amamentação, sono, puerpério, saúde emocional, vacinação, 
-introdução alimentar, cólicas, desenvolvimento 0-12 meses
-
-Baseie todo o conteúdo em diretrizes da SBP, OMS e Ministério da Saúde.
-Use linguagem acessível, sem jargão médico excessivo.
-```
-
----
-
-### Prompt 3 — Sistema de design e paleta
-
-```
-Defina um sistema de design CSS para uma 
-plataforma de saúde materna. A paleta deve transmitir:
-- Acolhimento e segurança (não frio/clínico)
-- Profissionalismo discreto
-- Clareza na leitura
-
-Use tons de creme, rose , terracota,verde-cinza.
-```
-
----
-
-### Prompt 4 — Drawer lateral interativo
-
-```
-Implemente um drawer lateral em JavaScript puro (sem bibliotecas) que:
-- Abre ao clicar nos topic cards
-- Renderiza dinamicamente o conteúdo do tópico selecionado
-- Fecha com botão X, clique no overlay ou tecla Escape
-- Tem animação CSS suave (transform translateX)
-- Trava o scroll do body quando aberto
-- Gerencia foco corretamente para acessibilidade (aria-hidden, focus)
-```
-
----
-
-#
-Adicione detector de emergências client-side que, antes de qualquer 
-resposta, verifica palavras como 'suicídio', 'convulsão', 'febre 40' 
-e exibe mensagem de emergência com SAMU e CVV.
-```
-
----
-
-### Prompt 6 — Refinamento de acessibilidade
-
-```
-Revise o HTML para garantir acessibilidade WCAG AA:
-- Adicione skip-link para o conteúdo principal
-- Use aria-label em todos elementos interativos sem texto visível
-- Adicione role="log" e aria-live="polite" na área de chat
-- Garanta focus-visible visível em todos elementos focáveis
-- Use sr-only para textos apenas para leitores de tela
-- Revise a ordem de tabulação
-```
 
 ---
 
@@ -150,7 +57,7 @@ Quando detectadas, o sistema exibe imediatamente:
 
 ---
 
-## 4. Chips de Sugestão (Perguntas Pré-Definidas)
+## 4. (Perguntas Pré-Definidas)
 
 Perguntas rápidas que preenchem o chat com um clique — reduzem a fricção para usuárias que não sabem como formular a dúvida:
 
