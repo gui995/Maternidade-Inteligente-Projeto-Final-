@@ -2,7 +2,7 @@
 
 ---
 
-## 2. System Prompt 
+## . System Prompt 
 
 Este é o prompt que define o comportamento do assistente dentro da aplicação. Está hardcoded no `index.html`:
 
@@ -35,7 +35,7 @@ REGRAS:
 
 ---
 
-## 3. Palavras-Chave de Emergência (Detector Client-Side)
+## . Palavras-Chave de Emergência (Detector Client-Side)
 
 Lista implementada diretamente no JS, verificada **antes** de qualquer chamada à API:
 
@@ -57,7 +57,7 @@ Quando detectadas, o sistema exibe imediatamente:
 
 ---
 
-## 4. (Perguntas Pré-Definidas)
+## . (Perguntas Pré-Definidas)
 
 Perguntas rápidas que preenchem o chat com um clique — reduzem a fricção para usuárias que não sabem como formular a dúvida:
 
