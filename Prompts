@@ -2,7 +2,7 @@
 
 ---
 
-## 2. System Prompt Embutido no Produto
+## 2. System Prompt 
 
 Este é o prompt que define o comportamento do assistente dentro da aplicação. Está hardcoded no `index.html`:
 
